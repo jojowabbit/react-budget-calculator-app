@@ -45,13 +45,6 @@ function App() {
     setAmount(e.target.value);
   };
 
-  const handleAlert = ({ type, text }) => {
-    setAlert({ show: true, type, text });
-    setTimeout(() => {
-      setAlert({ show: false });
-    }, 1500);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (charge !== "" && amount > 0) {
@@ -69,6 +62,23 @@ function App() {
     }
   };
 
+  const handleAlert = ({ type, text }) => {
+    setAlert({ show: true, type, text });
+    setTimeout(() => {
+      setAlert({ show: false });
+    }, 1500);
+  };
+
+  const clearList = () => {
+    setExpenses([]);
+  };
+  const handleDelete = (id) => {
+    console.log(`deleting item id: ${id}`);
+  };
+  const handleEdit = (id) => {
+    console.log(`editing item id: ${id}`);
+  };
+
   return (
     <>
       {alert.show && <Alert type={alert.type} text={alert.text} />}
@@ -81,7 +91,12 @@ function App() {
           handleAmount={handleAmount}
           handleSubmit={handleSubmit}
         />
-        <ExpenseList expenses={expenses} />
+        <ExpenseList
+          expenses={expenses}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          clearList={clearList}
+        />
       </main>
       <h1>
         total spending: RM
